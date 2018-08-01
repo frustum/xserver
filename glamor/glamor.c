@@ -881,5 +881,6 @@ glamor_finish(ScreenPtr screen)
 
     glamor_make_current(glamor_priv);
 
-    glFinish();
+    //glFinish();
+	glamor_flush();
 }
