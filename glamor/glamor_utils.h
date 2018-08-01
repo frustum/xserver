@@ -617,8 +617,8 @@ format_for_depth(int depth)
 static inline GLenum
 gl_iformat_for_pixmap(PixmapPtr pixmap)
 {
-    glamor_screen_private *glamor_priv =
-        glamor_get_screen_private((pixmap)->drawable.pScreen);
+//    glamor_screen_private *glamor_priv =
+//        glamor_get_screen_private((pixmap)->drawable.pScreen);
 
     if (((pixmap)->drawable.depth == 1 || (pixmap)->drawable.depth == 8)) {
         return GL_ALPHA;
@@ -749,5 +749,16 @@ glamor_glDrawArrays_GL_QUADS(glamor_screen_private *glamor_priv, unsigned count)
     }
 }
 
+/*
+ */
+static inline void glamor_flush(void)
+{
+	GLint fbo = 0;
+	glGetIntegerv(GL_FRAMEBUFFER_BINDING, &fbo);
+	if(0 != fbo) {
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+	}
+}
 
 #endif
